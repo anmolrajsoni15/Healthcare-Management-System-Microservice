@@ -1,0 +1,97 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SecurityServiceApplication<security-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.security_service.SecurityServiceApplication",
+      "projectName": "security-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ServiceRegistoryApplication<service_registory>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.service_registory.ServiceRegistoryApplication",
+      "projectName": "service_registory",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=51256 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=service_registory"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-GatewayApplication<gateway>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.gateway.GatewayApplication",
+      "projectName": "gateway",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=60229 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=gateway"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PatientServiceApplication<patient_service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.patient_service.PatientServiceApplication",
+      "projectName": "patient_service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=51631 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=patient_service"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AppointmentServiceApplication<appointment-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.appointment_service.AppointmentServiceApplication",
+      "projectName": "appointment-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AvailabilityServiceApplication<availability-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.availability_service.AvailabilityServiceApplication",
+      "projectName": "availability-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-UserManagementServiceApplication<user-management-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.user_management_service.UserManagementServiceApplication",
+      "projectName": "user-management-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-BillingServiceApplication<billing-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.billing_service.BillingServiceApplication",
+      "projectName": "billing-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-NotificationServiceApplication<notification-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jeevanraksha.notification_service.NotificationServiceApplication",
+      "projectName": "notification-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

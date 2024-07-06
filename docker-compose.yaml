@@ -1,0 +1,220 @@
+version: '3.7'
+services:
+  hms-postgres:
+    container_name: hms-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Namita10@snar
+      PGDATA: /data/hms_postgres
+    volumes:
+      - hms-postgres:/data/hms-postgres
+    ports:
+      - "5437:5432"
+    networks:
+      - hms-postgres
+    restart: unless-stopped
+  hms-pgadmin:
+    container_name: hms-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-anmolrajsoni15@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - hms-pgadmin:/var/lib/hms-pgadmin
+    ports:
+      - "5057:80"
+    networks:
+      - hms-postgres
+    restart: unless-stopped
+  
+  paitent-hms:
+    image: anmolrajsoni15/hms-patient-service
+    container_name: paitent-hms
+    ports:
+      - "8091:8091"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  availability-hms:
+    image: anmolrajsoni15/hms-availability-service
+    container_name: availability-hms
+    ports:
+      - "8092:8092"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  appointment-hms:
+    image: anmolrajsoni15/hms-appointment-service
+    container_name: appointment-hms
+    ports:
+      - "8093:8093"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  billing-hms:
+    image: anmolrajsoni15/hms-billing-service
+    container_name: billing-hms
+    ports:
+      - "8095:8095"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  prescription-hms:
+    image: anmolrajsoni15/hms-prescription-service
+    container_name: prescription-hms
+    ports:
+      - "8097:8097"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  notification-hms:
+    image: anmolrajsoni15/hms-notification-service
+    container_name: notification-hms
+    ports:
+      - "8096:8096"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  usermanagement-hms:
+    image: anmolrajsoni15/hms-user-management-service
+    container_name: usermanagement-hms
+    ports:
+      - "8094:8094"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  analytics-hms:
+    image: anmolrajsoni15/hms-analytics-service
+    container_name: analytics-hms
+    ports:
+      - "8098:8098"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-servicereg
+      - hms-configserver
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  hms-gateway:
+    image: anmolrajsoni15/hms-gateway-service
+    container_name: hms-gateway
+    ports:
+      - "7777:7777"
+    depends_on:
+      - hms-servicereg
+      - hms-rabbitmq
+      - zipkin
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - hms-network
+      - hms-postgres
+  hms-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: hms-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - hms-network
+      - hms-postgres
+  hms-configserver:
+    image: anmolrajsoni15/hms-config-service
+    container_name: hms-configserver
+    ports:
+      - "9080:9080"
+    depends_on:
+      - hms-servicereg
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  hms-servicereg:
+    image: anmolrajsoni15/hms-service-registory
+    container_name: hms-servicereg
+    ports:
+      - "8762:8762"
+    depends_on:
+      - hms-rabbitmq
+      - zipkin
+      - hms-postgres
+      - hms-pgadmin
+    networks:
+      - hms-network
+      - hms-postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  
+networks:
+  hms-network:
+    driver: bridge
+  hms-postgres:
+    driver: bridge
+
+volumes:
+  hms-postgres:
+  hms-pgadmin:
