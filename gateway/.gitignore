@@ -4,10 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-**/src/main/resources/**
-**/src/main/resources/application.properties
-**/src/main/resources/application-docker.properties
-
 ### STS ###
 .apt_generated
 .classpath
